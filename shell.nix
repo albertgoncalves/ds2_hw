@@ -6,8 +6,10 @@ with pkgs; mkShell {
                           csvkit
                           matplotlib
                           descartes
+                          flake8
                         ]
                     ))
+                    jq
                   ];
     shellHook = ''
         directory="deps/"
@@ -25,5 +27,6 @@ with pkgs; mkShell {
             alias ls='ls --color=auto'
             alias ll='ls -al'
         fi
+        alias flake8="flake8 --ignore E124,E128,E201,E203,E241,E402,W503"
     '';
 }

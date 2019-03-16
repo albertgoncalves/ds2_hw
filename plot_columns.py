@@ -1,27 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from collections import Counter
-
 from geopandas import GeoDataFrame, read_file
 import matplotlib.pyplot as plt
-from pandas import read_csv, to_datetime
+from pandas import to_datetime
 from shapely.geometry import Point
 
-
-def pipe(x, *fs):
-    for f in fs:
-        x = f(x)
-    return x
-
-
-def unzip(xy):
-    xs = []
-    ys = []
-    for (x, y) in xy:
-        xs.append(x)
-        ys.append(y)
-    return xs, ys
+from utils import histogram, load_csv, pipe, rename_columns, unzip
 
 
 def df_to_gdf(data):
@@ -33,35 +18,11 @@ def df_to_gdf(data):
                        )
 
 
-def string_to_date(data):
-    data.summons_date = to_datetime(data.summons_date)
-    return data.copy()
-
-
-def rename_columns(data):
-    columns = \
-        { "SUMMONS_KEY": "summons_key"
-        , "SUMMONS_DATE": "summons_date"
-        , "OFFENSE_DESCRIPTION": "offense_description"
-        , "LAW_SECTION_NUMBER": "law_section_number"
-        , "LAW_DESCRIPTION": "law_description"
-        , "SUMMONS_CATEGORY_TYPE": "summons_category_type"
-        , "AGE_GROUP": "age_group"
-        , "SEX": "sex"
-        , "RACE": "race"
-        , "JURISDICTION_CODE": "jurisdiction_code"
-        , "BORO": "borough"
-        , "PRECINCT_OF_OCCUR": "precinct_of_occurrence"
-        , "X_COORDINATE_CD": "x_coordinate_cd"
-        , "Y_COORDINATE_CD": "y_coordinate_cd"
-        , "Latitude": "lat"
-        , "Longitude": "lng"
-        }
-    return data.rename(columns=columns).copy()
-
-
-def histogram(xs):
-    return sorted(Counter(xs).items(), key=lambda kv: kv[1])
+def string_to_date(column):
+    def f(data):
+        data[column] = to_datetime(data[column])
+        return data.copy()
+    return f
 
 
 def frequency(data, column, n):
@@ -105,13 +66,11 @@ def geoplot(data, geodata, column, counts, i, j):
 
 if __name__ == "__main__":
     geojson = "data/borough_boundaries.geojson"
-    csv = "data/nypd_criminal_court_summons_incidents.csv"
     geodata = read_file(geojson)
     data = \
-        pipe( csv
-            , read_csv
+        pipe( load_csv()
             , rename_columns
-            , string_to_date
+            , string_to_date("summons_date")
             , df_to_gdf
             )
     columns = \
