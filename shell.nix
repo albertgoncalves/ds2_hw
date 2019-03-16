@@ -12,7 +12,7 @@ with pkgs; mkShell {
                     jq
                   ];
     shellHook = ''
-        directory="deps/"
+        directory="src/deps/"
         requirements="requirements.txt"
         if [ ! -d $directory ]; then
             pip install -t $directory -r $requirements
