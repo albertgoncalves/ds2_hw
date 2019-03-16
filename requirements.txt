@@ -1,0 +1,4 @@
+geopandas
+pystan
+pandas
+numpy
