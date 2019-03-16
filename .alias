@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+flake8_ignore () {
+    flake8 --ignore "E124,E128,E201,E203,E241,E402,W503" $1
+}
+
+export -f flake8_ignore

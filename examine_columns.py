@@ -20,14 +20,18 @@ def examine(data, column):
         }
 
 
+def pipeline(data):
+    def f(column):
+        return pipe(column, lambda column: examine(data, column))
+    return f
+
+
 if __name__ == "__main__":
     data = \
         pipe( load_csv()
             , rename_columns
             )
-    def pipeline(column):
-        return pipe(column, lambda column: examine(data, column))
-    pipe( map(pipeline, data.columns)
+    pipe( map(pipeline(data), data.columns)
         , list
         , dumps
         , print
