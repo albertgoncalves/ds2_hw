@@ -74,12 +74,15 @@ if __name__ == "__main__":
             , df_to_gdf
             )
     columns = \
-        [ "offense_description"
+        [ "summons_date"
+        , "offense_description"
         , "law_section_number"
+        , "law_description"
         , "summons_category_type"
         , "age_group"
         , "sex"
         , "race"
+        , "jurisdiction_code"
         , "borough"
         , "precinct_of_occurrence"
         ]
