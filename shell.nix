@@ -12,9 +12,7 @@ with pkgs; mkShell {
                           fiona         # | hence 'pip install --no-deps'...
                           six           # | all geopandas deps included here
                           pyproj        # | http://geopandas.org/install.html
-                          rtree         # |
                           descartes     # |
-                          pysal         # |
                         ]
                     ))
                     gdal
@@ -32,12 +30,6 @@ with pkgs; mkShell {
                 mkdir $subdir
             fi
         done
-        if [ $(uname -s) = "Darwin" ]; then
-            alias ls='ls --color=auto'
-            alias ll='ls -al'
-        else
-            alias open="xdg-open"
-        fi
         . .alias
     '';
 }
