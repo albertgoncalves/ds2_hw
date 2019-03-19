@@ -6,23 +6,24 @@ from collections import Counter
 from pandas import read_csv
 
 
+def clean_date(data):
+    data.summons_date = to_datetime(data.summons_date).astype(str)
+    return data.copy()
+
+
 def histogram(xs):
     return sorted(Counter(xs).items(), key=lambda kv: kv[1])
+
+
+def load_csv():
+    csv = "data/nypd_criminal_court_summons_incidents.csv"
+    return read_csv(csv)
 
 
 def pipe(x, *fs):
     for f in fs:
         x = f(x)
     return x
-
-
-def unzip(xy):
-    xs = []
-    ys = []
-    for (x, y) in xy:
-        xs.append(x)
-        ys.append(y)
-    return xs, ys
 
 
 def rename_columns(data):
@@ -47,6 +48,10 @@ def rename_columns(data):
     return data.rename(columns=columns).copy()
 
 
-def load_csv():
-    csv = "data/nypd_criminal_court_summons_incidents.csv"
-    return read_csv(csv)
+def unzip(xy):
+    xs = []
+    ys = []
+    for (x, y) in xy:
+        xs.append(x)
+        ys.append(y)
+    return xs, ys
