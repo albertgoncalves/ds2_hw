@@ -21,5 +21,9 @@ def plot(data, directory):
     plt.close()
 
 
-if __name__ == "__main__":
+def main():
     plot(load_csv(), environ["WD"])
+
+
+if __name__ == "__main__":
+    main()
