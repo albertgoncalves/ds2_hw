@@ -16,3 +16,4 @@ flake8_ignore () {
 
 export -f flake8_ignore
 alias csvlook="csvlook -d ';' --no-inference"
+alias sql="./sql"
