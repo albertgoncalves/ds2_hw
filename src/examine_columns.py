@@ -4,7 +4,7 @@
 from collections import Counter
 from json import dumps
 
-from utils import load_csv, pipe, rename_columns
+from utils import histogram, load_csv, pipe, rename_columns
 
 
 def examine(data, column):
@@ -16,7 +16,12 @@ def examine(data, column):
         , "n": n
         , "pct_nan": n_null / n
         , "n_unique": n_unique
-        , "table": Counter(data[column]) if n_unique < 50 else Counter([])
+        , "table":
+            pipe( Counter(data[column]) if n_unique < 50 else Counter([])
+                , histogram
+                , lambda xs: xs[::-1]
+                , dict
+                )
         }
 
 

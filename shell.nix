@@ -1,23 +1,26 @@
 { pkgs ? import <nixpkgs> {} }:
 with pkgs; mkShell {
     name = "Python";
-    buildInputs = [ (python36.withPackages(ps: with ps;
-                        [ pip
-                          pandas
-                          numpy
-                          matplotlib
-                          csvkit
-                          flake8
-                          shapely       # | on linux, shapely fails via pip
-                          fiona         # | hence 'pip install --no-deps'...
-                          six           # | all geopandas deps included here
-                          pyproj        # | http://geopandas.org/install.html
-                          descartes     # |
-                        ]
-                    ))
-                    gdal
-                    jq
-                  ];
+    buildInputs = [
+        (python36.withPackages(ps: with ps; [
+            pip
+            pandas
+            numpy
+            matplotlib
+            flake8
+            shapely     # | on linux, shapely fails via pip
+            fiona       # | hence 'pip install --no-deps'...
+            six         # | all geopandas deps included here
+            pyproj      # | http://geopandas.org/install.html
+            descartes   # |
+        ]))
+        gdal
+        jq
+        sqlite
+        rlwrap
+    ] ++ (with python36Packages; [
+        (csvkit.overridePythonAttrs (oldAttrs: {checkPhase = "true";}))
+    ]);
     shellHook = ''
         directory="src/deps/"
         requirements="requirements.txt"
@@ -31,5 +34,6 @@ with pkgs; mkShell {
             fi
         done
         . .alias
+        export WD=$(pwd)
     '';
 }
