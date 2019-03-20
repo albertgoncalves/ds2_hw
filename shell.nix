@@ -14,6 +14,9 @@ with pkgs; mkShell {
             pyproj      # | http://geopandas.org/install.html
             descartes   # |
         ]))
+        (with rPackages; [
+            R
+        ])
         gdal
         jq
         sqlite
