@@ -3,6 +3,7 @@
 !.alias
 !*.py
 !*.sh
+!*.sql
 !shell.nix
 !requirements.txt
 !sql
