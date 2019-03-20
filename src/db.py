@@ -9,10 +9,9 @@ from utils import clean_date, load_csv, pipe, rename_columns
 
 
 def main():
-    directory = environ["WD"]
-    db = "{}/db".format(directory)
+    db = "{}/data/db".format(environ["WD"])
     if not exists(db):
-        con = connect("{}/db".format(directory))
+        con = connect(db)
         data = \
             pipe( load_csv()
                 , rename_columns
@@ -21,7 +20,6 @@ def main():
         data.to_sql(name="data", con=con)
     else:
         print("data already compiled to {}".format(db))
-
 
 
 if __name__ == "__main__":

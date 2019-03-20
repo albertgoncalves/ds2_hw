@@ -2,9 +2,12 @@
 
 set -e
 
+cd $WD
 . .alias
 
-if [ ! -f db ]; then
+db="data/db"
+
+if [ ! -f $db ]; then
     echo "db not found, rebuilding..."
     python src/db.py
 fi
@@ -17,4 +20,4 @@ else
     sql=$1
 fi
 
-sqlite3 -csv -header -separator ";" db "$sql"
+sqlite3 -csv -header -separator ";" $db "$sql"
