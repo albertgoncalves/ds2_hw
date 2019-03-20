@@ -17,6 +17,7 @@ with pkgs; mkShell {
         (with rPackages; [
             R
         ])
+        glibcLocales
         gdal
         jq
         sqlite
