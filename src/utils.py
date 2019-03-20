@@ -3,7 +3,7 @@
 
 from collections import Counter
 
-from pandas import read_csv
+from pandas import read_csv, to_datetime
 
 
 def clean_date(data):

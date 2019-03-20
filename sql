@@ -4,6 +4,11 @@ set -e
 
 . .alias
 
+if [ ! -f db ]; then
+    echo "db not found, rebuilding..."
+    python src/db.py
+fi
+
 if [[ $1 = "file" ]]; then
     sql="$(cat $2)"
 elif [[ $1 = "columns" ]]; then

@@ -5,8 +5,6 @@ from os import environ
 from os.path import exists
 from sqlite3 import connect
 
-from pandas import to_datetime
-
 from utils import clean_date, load_csv, pipe, rename_columns
 
 
