@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 from geopandas import GeoDataFrame, read_file
 import matplotlib.pyplot as plt
