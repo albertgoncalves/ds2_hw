@@ -1,8 +1,13 @@
-SELECT offense_description
-    , law_section_number
+SELECT law_section_number
+    , offense_description
+    , borough
+    , sex
+    , race
     , COUNT(*) AS n
 FROM data
-WHERE offense_description = 'ACCEPT ON HAIL'
-GROUP BY offense_description
-    , law_section_number
+GROUP BY law_section_number
+    , offense_description
+    , borough
+    , sex
+    , race
 ORDER BY COUNT(*) DESC;
