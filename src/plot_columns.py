@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import fiona
 from geopandas import GeoDataFrame, read_file
 import matplotlib.pyplot as plt
 from pandas import to_datetime
