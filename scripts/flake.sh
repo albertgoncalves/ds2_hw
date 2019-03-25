@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 cd $WD
 
 for f in src/*.py; do
