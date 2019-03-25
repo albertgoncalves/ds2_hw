@@ -2,7 +2,7 @@
 with pkgs; mkShell {
     name = "Python";
     buildInputs = [
-        (python36.withPackages(ps: with ps; [
+        (python37.withPackages(ps: with ps; [
             pip
             pandas
             numpy
