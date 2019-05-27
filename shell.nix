@@ -22,9 +22,9 @@ with pkgs; mkShell {
         jq
         sqlite
         rlwrap
-    ] ++ (with python36Packages; [
-        (csvkit.overridePythonAttrs (oldAttrs: {checkPhase = "true";}))
-    ]);
+    ] ++ (with python37Packages; [(csvkit.overridePythonAttrs (oldAttrs: {
+        doCheck = false;
+    }))]);
     shellHook = ''
         directory="src/deps/"
         requirements="requirements.txt"
